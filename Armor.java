@@ -1,4 +1,4 @@
-package inventorymanager;
+package InventoryManager;
 
 /**
  *
