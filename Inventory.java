@@ -1,5 +1,6 @@
 package InventoryManager;
 
+import InventoryManager.AppExceptions.DuplicateItemException;
 import InventoryManager.AppExceptions.FullInventoryException;
 import InventoryManager.AppExceptions.ItemNotFoundException;
 
@@ -7,13 +8,13 @@ import InventoryManager.AppExceptions.ItemNotFoundException;
  *
  * @author abbyf
  */
-
 // Abby + Abhishek
 class Inventory {
+
     // Abby
-    private Item[] items;
-    private int maxSize;
-    private int currentSize;
+    protected Item[] items;
+    protected int maxSize;
+    protected int currentSize;
 
     public Inventory(int maxSize) {
         // Abby
@@ -22,23 +23,87 @@ class Inventory {
         items = new Item[maxSize];
     }
 
-    public boolean addItem(Item item) {
+    private boolean itemExists(Item item) {
         // Abby
-        // returns true if item added successfully or false in not
-        // will trigger exceptions
+        // checks if the item requested is null
+        return item != null;
     }
 
-    public boolean removeItem(String name) {
+    private boolean isSameName(Item item, String name) {
         // Abby
-        // returns true if item removed successfully or false in not
-        // will trigger exceptions
+        // checks if item is null and if the name matches another item name
+        return itemExists(item) && item.getName().equalsIgnoreCase(name);
     }
 
-    public Item getItemByName(String name) {
+    public void addItem(Item newItem) {
+        // Abby
+        // Check if item is already in Inventory
+        // if it is, trigger the exception
+        for (Item item : items) {
+            if (isSameName(item, newItem.getName())) {
+                try {
+                    throw new DuplicateItemException(
+                            "Item already exists in the inventory.",
+                            "DUPLICATE_ITEM_ERROR",
+                            newItem.getName()
+                    );
+                } catch (DuplicateItemException e) {
+                    System.out.println(e);
+                    return;
+                }
+            }
+        }
+        // Check if there is space for a new item
+        // if there isn't, trigger the exception
+        if (currentSize >= maxSize) {
+            try {
+                throw new FullInventoryException("Inventory is full! Cannot add more items.", "FULL_INVENTORY_ERROR", currentSize, maxSize);
+            } catch (FullInventoryException e) {
+                System.out.println(e);
+                return;
+            }
+        }
+        // Find the first empty array slot and add the item
+        for (int i = 0; i < maxSize; i++) {
+            if (items[i] == null) {
+                items[i] = newItem;
+                // increase current inventory size when item is added
+                currentSize++;
+                System.out.printf("%s added successfully. %n", newItem.getName());
+                return;
+            }
+        }
+    }
+
+    public void removeItem(String name) {
+        // Abby
+        // a variable to track if item is found
+        boolean itemFound = false;
+        // Try to find item and delete
+        for (int i = 0; i < maxSize; i++) {
+            if (isSameName(items[i], name)) {
+                items[i] = null;
+                // reduce current inventory size when item is removed
+                currentSize--;
+                System.out.printf("%s removed successfully. %n", name);
+                itemFound = true;
+                break;
+            }
+        }
+        if (!itemFound) {
+            try {
+                throw new ItemNotFoundException("Item not found in the inventory!", "ITEM_NOT_FOUND_ERROR", name);
+            } catch (ItemNotFoundException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public Item getItemByName(String name) throws ItemNotFoundException {
         // Abhishek
         // will search for item by name and return it
         for (Item item : items) {
-            if (item.name.equalsIgnoreCase(name)) { // Case-insensitive search
+            if (isSameName(item, name)) { // Case-insensitive search
                 return item;
             }
         }
@@ -46,14 +111,14 @@ class Inventory {
 
     }
 
-    public Item[] getItemsByCategory(ItemCategory category) {
+    public Item[] getItemsByCategory(ItemCategory category) throws ItemNotFoundException {
         // Abhishek
         // will search for items by ItemCategory emun and return an array
         int count = 0;
 
         // Count matching items
         for (Item item : items) {
-            if (item.getCategory() == category) {
+            if (itemExists(item) && item.getCategory() == category) {
                 count++;
             }
         }
@@ -67,7 +132,7 @@ class Inventory {
         int index = 0;
 
         for (Item item : items) {
-            if (item.getCategory() == category) {
+            if (itemExists(item) && item.getCategory() == category) {
                 filteredItems[index++] = item;
             }
         }
@@ -80,7 +145,9 @@ class Inventory {
         // Abhishek
         // calls toString override in a for each loop to print all inventory details
         for (Item item : items) {
-            System.out.println(item.toString());
+            if (item != null) {
+                System.out.println(item.toString());
+            }
         }
 
     }
@@ -123,14 +190,6 @@ class Inventory {
     public int getRemainingSpace() {
         // Abhishek
         // retrieves remaining inventory space(max-current) and prints
-        if (maxSize < currentSize) {
-            try {
-                throw new FullInventoryException("Inventory is Full", "INVENTORY_IS_FULL", currentSize, maxSize);
-            } catch (FullInventoryException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
         int remainingSpace = maxSize - currentSize;
         System.out.println("Remaining space: " + remainingSpace);
         return remainingSpace;
@@ -144,9 +203,10 @@ class Inventory {
         double totalValue = 0;
 
         // Iterate through the array of item values to calculate the total value
-
         for (Item item : items) {
+            if(itemExists(item)){
             totalValue += item.getValue();
+            }
         }
 
         // Print the total inventory value
@@ -158,6 +218,15 @@ class Inventory {
 
     public void help() {
         // Abby
-        // prints explanation of code
+        System.out.println("Inventory Management Help:");
+        System.out.println("- addItem: Adds an item to the inventory. Item must be created first.");
+        System.out.println("- removeItem: Removes an item from the inventory by name");
+        System.out.println("- getItemByName: Returns an item by its name");
+        System.out.println("- getItemsByCategory: Returns items by category");
+        System.out.println("- printInventoryDetails: Prints all items in the inventory");
+        System.out.println("- printCategoryDetails: Prints all items in a specific category");
+        System.out.println("- printItemDetails: Prints details of a specific item");
+        System.out.println("- getRemainingSpace: Shows available inventory slots");
+        System.out.println("- getTotalValue: Calculates total value of inventory");
     }
 }
