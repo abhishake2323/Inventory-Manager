@@ -12,5 +12,4 @@ class Miscellaneous extends Item{
         this.notes = notes;
         category = ItemCategory.MISCELLANEOUS;
     }
-    
 }

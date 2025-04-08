@@ -36,5 +36,8 @@ abstract class Item {
         return category;
     }
 
-    
+    @Override
+    public String toString(){
+       return String.format("Name: %s%nValue: %.2f%nWeight: %.2f%nCategory: %s%n", name, value, weight, category);
+    }
 }

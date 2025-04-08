@@ -4,6 +4,7 @@ package InventoryManager;
  *
  * @author abbyf
  */
+// Veevek
 abstract class Usable extends Item{
     
     protected boolean inUse;
