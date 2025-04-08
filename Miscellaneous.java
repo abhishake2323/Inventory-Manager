@@ -12,4 +12,19 @@ class Miscellaneous extends Item{
         this.notes = notes;
         category = ItemCategory.MISCELLANEOUS;
     }
+    
+    
+    public String getNotes() {
+        return notes;
+    }
+    
+    public void setNotes(String notes){
+        this.notes = notes;
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString() + "Notes: " + notes;
+    }
+    
 }

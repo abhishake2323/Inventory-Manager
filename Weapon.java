@@ -5,7 +5,7 @@ package InventoryManager;
  * @author abbyf
  */
 // Veevek
-class Weapon extends Usable{
+public class Weapon extends Usable{
     private DamageType damageType;
     
     public Weapon(String name, double value, double weight, boolean inUse, DamageType damageType) {
@@ -18,10 +18,14 @@ class Weapon extends Usable{
     public String getType() {
         // Veevek
        // this will provide damage type
+       
+       return damageType.toString();
     }
  @Override
     public String toString(){
         // Veevek
-        // will override string to print useable item info + damage type info
+        // will override string to print useable item info and damage type info
+        
+        return super.toString() + "Damage Type: " + damagetype;
     }
 }
