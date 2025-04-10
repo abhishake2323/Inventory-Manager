@@ -57,9 +57,9 @@ class Inventory {
         // if there isn't, trigger the exception
         if (currentSize >= maxSize) {
             try {
-                throw new FullInventoryException("Inventory is full! Cannot add more items.", "FULL_INVENTORY_ERROR", currentSize, maxSize);
+                throw new FullInventoryException("WARNING : Inventory is full!", "FULL_INVENTORY_WARNING", currentSize, maxSize);
             } catch (FullInventoryException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
                 return;
             }
         }
