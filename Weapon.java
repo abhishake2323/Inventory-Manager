@@ -23,9 +23,10 @@ public class Weapon extends Usable{
     }
  @Override
     public String toString(){
+        return super.toString() + "Damage Type: " + damageType;
+    }
         // Veevek
         // will override string to print useable item info and damage type info
         
-        return super.toString() + "Damage Type: " + damagetype;
-    }
+        
 }

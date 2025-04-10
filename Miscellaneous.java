@@ -20,6 +20,7 @@ class Miscellaneous extends Item{
     
     public void setNotes(String notes){
         this.notes = notes;
+        System.out.println(getName() + " notes successfully updated.");
     }
     
     @Override
