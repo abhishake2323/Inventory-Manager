@@ -4,6 +4,8 @@ package InventoryManager;
  *
  * @author abbyf
  */
+
+// Abby
 abstract class Item {
     protected String name;
     protected double value;
@@ -11,6 +13,7 @@ abstract class Item {
     protected ItemCategory category;
     
     // Constructor
+    // Abby
     public Item(String name, double value, double weight) {
         this.name = name;
         this.value = value;
@@ -19,8 +22,8 @@ abstract class Item {
     }
     
     // Getters
-    
-    public String getName() {
+    // Abby
+    public String getName() {     
         return name;
     }
 
@@ -38,6 +41,8 @@ abstract class Item {
 
     @Override
     public String toString(){
+       // Abby
+       // Prints the attributes shared by all items
        return String.format("Name: %s%nValue: %.2f%nWeight: %.2f%nCategory: %s%n", name, value, weight, category);
     }
 }

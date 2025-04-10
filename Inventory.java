@@ -10,35 +10,37 @@ import InventoryManager.AppExceptions.ItemNotFoundException;
  */
 // Abby + Abhishek
 class Inventory {
-
-    // Abby
     protected Item[] items;
     protected int maxSize;
     protected int currentSize;
-
+    
+    // Inventory Constructor
+    // Abby
     public Inventory(int maxSize) {
-        // Abby
         this.maxSize = maxSize;
         currentSize = 0;
         items = new Item[maxSize];
     }
-
+    
+    // Utility Methods
+    // Abby
+    
+    // Checks if the item requested is null
     private boolean itemExists(Item item) {
-        // Abby
-        // checks if the item requested is null
         return item != null;
     }
-
+    
+    // Checks if item is null and if the name matches another item name
+    // Case-insensitive search
     private boolean isSameName(Item item, String name) {
-        // Abby
-        // checks if item is null and if the name matches another item name
         return itemExists(item) && item.getName().equalsIgnoreCase(name);
     }
 
+    // Add item to inventory
+    // Abby
     public void addItem(Item newItem) {
-        // Abby
         // Check if item is already in Inventory
-        // if it is, trigger the exception
+        // if it is, trigger the duplicate item exception
         for (Item item : items) {
             if (isSameName(item, newItem.getName())) {
                 try {
@@ -54,12 +56,12 @@ class Inventory {
             }
         }
         // Check if there is space for a new item
-        // if there isn't, trigger the exception
+        // if there isn't, trigger the full inventory exception
         if (currentSize >= maxSize) {
             try {
-                throw new FullInventoryException("WARNING : Inventory is full!", "FULL_INVENTORY_WARNING", currentSize, maxSize);
+                throw new FullInventoryException("Inventory is full! Cannot add more items.", "FULL_INVENTORY_ERROR", currentSize, maxSize);
             } catch (FullInventoryException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e);
                 return;
             }
         }
@@ -74,12 +76,22 @@ class Inventory {
             }
         }
     }
-
+    
+    // Bulk Add Item
+    // Abby
+    public void addMultiple(Item[] items){
+        // Adds multiple items to the inventory at once as an array
+        for (Item item : items){
+            addItem(item);
+    }
+    }
+    
+    // Remove item from inventory
+    // Abby
     public void removeItem(String name) {
-        // Abby
-        // a variable to track if item is found
+        // To track if item is found
         boolean itemFound = false;
-        // Try to find item and delete
+        // Loop the inventory to try to find item and delete it
         for (int i = 0; i < maxSize; i++) {
             if (isSameName(items[i], name)) {
                 items[i] = null;
@@ -90,6 +102,8 @@ class Inventory {
                 break;
             }
         }
+        // If the item is not found in the inventory
+        // trigger the item not found exception
         if (!itemFound) {
             try {
                 throw new ItemNotFoundException("Item not found in the inventory!", "ITEM_NOT_FOUND_ERROR", name);
@@ -98,135 +112,134 @@ class Inventory {
             }
         }
     }
-
+    // Search for an item by name
+    // Abhishek
     public Item getItemByName(String name) throws ItemNotFoundException {
-        // Abhishek
         // will search for item by name and return it
         for (Item item : items) {
-            if (isSameName(item, name)) { // Case-insensitive search
+            if (isSameName(item, name)) { 
                 return item;
             }
         }
+        // if item was not found trigger not found exception
         throw new ItemNotFoundException("Item not found in the inventory!", "ITEM_NOT_FOUND_ERROR", name);
-
     }
-
+    
+    // Search for items by category and return matching items
+    // Abhishek
     public Item[] getItemsByCategory(ItemCategory category) throws ItemNotFoundException {
-        // Abhishek
         // will search for items by ItemCategory emun and return an array
         int count = 0;
-
         // Count matching items
         for (Item item : items) {
             if (itemExists(item) && item.getCategory() == category) {
                 count++;
             }
         }
-
+        // if no items are found in the category
+        // trigger not found exception
         if (count == 0) {
             throw new ItemNotFoundException("Items not found in the inventory with specified category!",
                     "ITEM_NOT_FOUNDS_WITH_CATEGORY", category.toString());
         }
-
+        // New array for filtered items
         Item[] filteredItems = new Item[count];
         int index = 0;
-
+        // ensures item is valid and the category matches the request
         for (Item item : items) {
             if (itemExists(item) && item.getCategory() == category) {
                 filteredItems[index++] = item;
             }
         }
-
+        // returns array of items that match the category
         return filteredItems;
-
     }
-
+    
+    // Prints all inventory details
+    // Abhishek
     public void printInventoryDetails() {
-        // Abhishek
         // calls toString override in a for each loop to print all inventory details
         for (Item item : items) {
             if (item != null) {
                 System.out.println(item.toString());
             }
         }
-
+        getRemainingSpace();
+        getTotalValue();
     }
-
+    
+    // Prints details for all items in a specific category
+    // Abhishek
     public void printCategoryDetails(ItemCategory category) {
-        // Abhishek
         // uses getItemsByCategory to sort items then
         // calls toString override in a for each loop to print all
         // inventory details for sorted items
-
         try {
             // Get sorted items by category using getItemsByCategory
             Item[] filteredItems = getItemsByCategory(category);
-
             // Print details of sorted items
             System.out.println("Items in category: " + category);
             for (Item item : filteredItems) {
-                System.out.println(item.toString()); // Call the overridden toString method
+                System.out.println(item.toString());
             }
+        // will print exception if items are not found
         } catch (ItemNotFoundException e) {
-
             System.out.println(e.getMessage());
         }
 
     }
-
+    
+    // Prints Spesific Item Details based on name
+    // Abhishek
     public void printItemDetails(String name) {
-        // Abhishek
         // uses getItemByName to find item then
         // calls toString to print item details
         try {
             System.out.println(getItemByName(name));
         } catch (ItemNotFoundException e) {
-
             System.out.println(e.getMessage());
         }
 
     }
-
-    public int getRemainingSpace() {
-        // Abhishek
+    
+    // Retrieves the remaining space of the inventory
+    // Abhishek
+    public void getRemainingSpace() {
         // retrieves remaining inventory space(max-current) and prints
         int remainingSpace = maxSize - currentSize;
-        System.out.println("Remaining space: " + remainingSpace);
-        return remainingSpace;
-
+        System.out.println("Remaining space: " + remainingSpace + "\n");
     }
-
-    public double getTotalValue() {
-        // Abhishek
+    
+    // Retrieves the total value of the inventory
+    // Abhishek
+    public void getTotalValue() {
         // calculates total inventory value and prints
 
         double totalValue = 0;
-
         // Iterate through the array of item values to calculate the total value
         for (Item item : items) {
             if(itemExists(item)){
             totalValue += item.getValue();
             }
         }
-
         // Print the total inventory value
-        System.out.println("Total inventory value: " + totalValue);
-
-        return totalValue;
-
+        System.out.println("Total inventory value: " + totalValue + "\n");
     }
 
+    // Help method for explaining usage
+    // Abby
     public void help() {
-        // Abby
+        
         System.out.println("Inventory Management Help:");
         System.out.println("- addItem: Adds an item to the inventory. Item must be created first.");
-        System.out.println("- removeItem: Removes an item from the inventory by name");
-        System.out.println("- getItemByName: Returns an item by its name");
-        System.out.println("- getItemsByCategory: Returns items by category");
-        System.out.println("- printInventoryDetails: Prints all items in the inventory");
-        System.out.println("- printCategoryDetails: Prints all items in a specific category");
-        System.out.println("- printItemDetails: Prints details of a specific item");
-        System.out.println("- getRemainingSpace: Shows available inventory slots");
-        System.out.println("- getTotalValue: Calculates total value of inventory");
+        System.out.println("- addMultiple: Adds multiple items to the inventory. Items must in an Item array.");
+        System.out.println("- removeItem: Removes an item from the inventory by name.");
+        System.out.println("- getItemByName: Returns an item by its name.");
+        System.out.println("- getItemsByCategory: Returns items by category.");
+        System.out.println("- printInventoryDetails: Prints all items in the inventory and inventory details.");
+        System.out.println("- printCategoryDetails: Prints all items in a specific category.");
+        System.out.println("- printItemDetails: Prints details of a specific item.");
+        System.out.println("- getRemainingSpace: Prints available inventory slots.");
+        System.out.println("- getTotalValue: Calculates and prints total value of inventory.");
     }
 }

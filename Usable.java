@@ -4,28 +4,36 @@ package InventoryManager;
  *
  * @author abbyf
  */
-// Veevek
+
+// Veevek + Abby
 abstract class Usable extends Item{
-    
     protected boolean inUse;
-    
+    // Constructor for Usable
+    // Abby
     public Usable(String name, double value, double weight, boolean inUse) {
         super(name, value, weight);
         this.inUse = inUse;
     }
     
-    // in Armor will get armor type in weapon will get weapon type
+    // Abstract method for retriving usable type
+    // Abby
+    // in Armor will get armor type 
+    // in weapon will get weapon type
     public abstract String getType();
     
+    // In Use
+    // Veevek   
     public boolean isInUse(){
-         // will tell user if item is in use or not
+        // will tell user if item is in use or not
          return inUse;
     }
-        
+    
+    // Equip + Unequip Methods
+    // Switch the equip state and provide confirmation
+    // Veevek
     public void equip(){
         // will set an item to inUse = true
-        // checks wether the item is already equipped
-        
+        // checks whether the item is already equipped
         if (inUse){
             System.out.println( getName()+ " is already equipped!");
         }
@@ -35,22 +43,21 @@ abstract class Usable extends Item{
         }
     }
     public void unequip(){
+        // Veevek
         // will set an item to inUse = false
-        // checks wether the item is already unequipped
-
-         if (inUse){
-            System.out.println( getName()+ " is now unequipped!");
+        // checks whether the item is already unequipped
+         if (!inUse){
+            System.out.println( getName()+ " is already unequipped!");
         }
         else {
         inUse = false;
-        System.out.println(getName() + "is already unequipped!");
-        }
-        
+        System.out.println(getName() + "is now unequipped!");
+        } 
     }
     @Override
     public String toString(){
-        //will override string to print useable item info
-        
-        return super.toString() + "In Use: " + inUse;
+        // Veevek
+        // will override string to print useable item info
+        return super.toString() + "In Use: " + inUse + "\n";
     }
 }
