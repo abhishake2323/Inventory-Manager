@@ -17,16 +17,14 @@ public class Armor extends Usable{
     @Override
     public String getType() {
        // Veevek
-       // this will provide damage type
-       
+       // this will provide armor type  
        return armorType.toString();
     }
  @Override
     public String toString(){
         // Veevek
-        // will override string to print useable item info and armor type info
-        
-        return super.toString() + "Armor Type: " + armorType;
+        // will override string to print useable item info and armor type info  
+        return super.toString() + "Armor Type: " + armorType  + "\n";
     }
 
 }

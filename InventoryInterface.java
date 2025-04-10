@@ -4,6 +4,8 @@ package InventoryManager;
  *
  * @author abbyf
  */
+
+// Abby
 interface InventoryInterface {
     
     // Add item to inventory
@@ -18,9 +20,7 @@ interface InventoryInterface {
     public void printInventoryDetails();
     public void printCategoryDetails(ItemCategory category);
     public void printItemDetails(String name);
-    
-    // Get inventory info
-    public int getRemainingSpace();
-    public double getTotalValue();
+    public void getRemainingSpace();
+    public void getTotalValue();
      
 }
