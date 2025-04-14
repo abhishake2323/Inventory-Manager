@@ -241,5 +241,10 @@ class Inventory {
         System.out.println("- printItemDetails: Prints details of a specific item.");
         System.out.println("- getRemainingSpace: Prints available inventory slots.");
         System.out.println("- getTotalValue: Calculates and prints total value of inventory.");
+        System.out.println("- equip - Equip a usable item");
+        System.out.println("- unequip - Unequip a usable item");
+        System.out.println("- getType - Display the damage or armor type");
+        System.out.println("- setNotes - Update notes for miscellaneous items");
+        System.out.println("- isInUse - Check if a usable item is currently equipped");
     }
 }

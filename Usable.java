@@ -58,6 +58,6 @@ abstract class Usable extends Item{
     public String toString(){
         // Veevek
         // will override string to print useable item info
-        return super.toString() + "In Use: " + inUse + "\n";
+        return super.toString() + "In Use: " + inUse;
     }
 }

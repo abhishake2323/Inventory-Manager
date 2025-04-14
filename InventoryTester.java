@@ -127,6 +127,21 @@ public class InventoryTester {
         pants.setNotes("These pants are waterproof and fireproof");
         System.out.println(pants.toString());
         
+        //////////////////// Usable Class Methods /////////////////
+
+        System.out.println("______________Usable Class Methods______________");
+
+        System.out.println("Checking inUse status for Machette:");
+        System.out.println("Is Machette in use? " + machette.isInUse());
+
+        machette.equip();       // Should say equipped
+        machette.equip();       // Should say already equipped
+        machette.unequip();     // Should say unequipped
+        machette.unequip();     // Should say already unequipped
+
+        System.out.println("Is Machette in use? " + machette.isInUse());
+    }
+        
     }
     public static void main(String[] args) {
         new InventoryTester();
