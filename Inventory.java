@@ -2,12 +2,14 @@ package InventoryManager;
 
 import InventoryManager.AppExceptions.DuplicateItemException;
 import InventoryManager.AppExceptions.FullInventoryException;
+import InventoryManager.AppExceptions.InvalidItemException;
 import InventoryManager.AppExceptions.ItemNotFoundException;
 
 /**
  *
  * @author abbyf
  */
+
 // Abby + Abhishek
 class Inventory {
     protected Item[] items;
@@ -35,10 +37,52 @@ class Inventory {
     private boolean isSameName(Item item, String name) {
         return itemExists(item) && item.getName().equalsIgnoreCase(name);
     }
-
-    // Add item to inventory
+    // Add item to inventory with extensive validation
     // Abby
     public void addItem(Item newItem) {
+        // Validate item before adding
+    if (newItem == null) {
+        try {
+            throw new InvalidItemException(
+                "Item cannot be null",
+                "INVALID_ITEM_ERROR",
+                "item",
+                null
+            );
+        } catch (InvalidItemException e) {
+            System.out.println(e);
+            return;
+        }
+    }
+
+    // Validate item properties
+    if (newItem.getName() == null || newItem.getName().trim().isEmpty()) {
+        try {
+            throw new InvalidItemException(
+                "Item name cannot be empty",
+                "INVALID_ITEM_ERROR",
+                "name",
+                newItem.getName()
+            );
+        } catch (InvalidItemException e) {
+            System.out.println(e);
+            return;
+        }
+    }
+
+    if (newItem.getValue() < 0) {
+        try {
+            throw new InvalidItemException(
+                "Item value cannot be negative",
+                "INVALID_ITEM_ERROR",
+                "value",
+                newItem.getValue()
+            );
+        } catch (InvalidItemException e) {
+            System.out.println(e);
+            return;
+        }
+    }
         // Check if item is already in Inventory
         // if it is, trigger the duplicate item exception
         for (Item item : items) {
@@ -59,7 +103,11 @@ class Inventory {
         // if there isn't, trigger the full inventory exception
         if (currentSize >= maxSize) {
             try {
-                throw new FullInventoryException("Inventory is full! Cannot add more items.", "FULL_INVENTORY_ERROR", currentSize, maxSize);
+                throw new FullInventoryException(
+                    "Inventory is full! Cannot add more items.",
+                    "FULL_INVENTORY_ERROR", 
+                    currentSize, 
+                    maxSize);
             } catch (FullInventoryException e) {
                 System.out.println(e);
                 return;
@@ -241,10 +289,5 @@ class Inventory {
         System.out.println("- printItemDetails: Prints details of a specific item.");
         System.out.println("- getRemainingSpace: Prints available inventory slots.");
         System.out.println("- getTotalValue: Calculates and prints total value of inventory.");
-        System.out.println("- equip - Equip a usable item");
-        System.out.println("- unequip - Unequip a usable item");
-        System.out.println("- getType - Display the damage or armor type");
-        System.out.println("- setNotes - Update notes for miscellaneous items");
-        System.out.println("- isInUse - Check if a usable item is currently equipped");
     }
 }
