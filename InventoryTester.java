@@ -35,11 +35,11 @@ public class InventoryTester {
         Item[] items = {shirt, pants, wand, potion, fork};
         
         ///////////////// Help Method /////////////////
-        System.out.println("______________Helper Method______________");
+        System.out.println("______________Helper Method______________\n");
         test.help();
         
         ///////////////// Basic Inventory Manipulation Methods /////////////////
-        System.out.println("______________Basic Inventory Manipulation Methods______________");
+        System.out.println("\n______________Basic Inventory Manipulation Methods______________\n");
         
         // Add multiple items using array
         test.addMultiple(items);
@@ -54,11 +54,12 @@ public class InventoryTester {
         test.addItem(lowershield);
         
         ///////////////// Basic Print Methods /////////////////
-        System.out.println("______________Basic Print Methods______________");
+        System.out.println("\n______________Basic Print Methods______________\n");
         
         // Print all Inventory Details
+        System.out.println("--Start Full Inventory Details--\n");
         test.printInventoryDetails();
-        System.out.println("End Full Inventory Details");
+        System.out.println("--End Full Inventory Details--\n");
         
         // Print inventory value
         test.getTotalValue();
@@ -79,27 +80,27 @@ public class InventoryTester {
         
         ///////////////// Weapon Subclass Methods /////////////////
         
-        System.out.println("______________Weapon Subclass Methods______________");
+        System.out.println("______________Weapon Subclass Methods______________\n");
         
         test.printItemDetails("Machette");
 
-        System.out.println("\nMachette Damage Type: " + machette.getType() + "\n");
+        System.out.println("Machette Damage Type: " + machette.getType() + "\n");
        
         System.out.println(fork.toString());
         
         ///////////////// Armor Subclass Methods /////////////////
         
-        System.out.println("______________Armor Subclass Methods______________");
+        System.out.println("______________Armor Subclass Methods______________\n");
         
         test.printItemDetails("Upper Body Shield");
         
-        System.out.println("\nUpper Body Shield Armor Type: " + uppershield.getType() + "\n");
+        System.out.println("Upper Body Shield Armor Type: " + uppershield.getType() + "\n");
         
         test.printItemDetails("Upper Body Shield");
         
         ///////////////// Consumable Subclass Methods /////////////////
         
-        System.out.println("______________Consumable Subclass Methods______________");
+        System.out.println("______________Consumable Subclass Methods______________\n");
         
         test.printItemDetails("potion");
         
@@ -118,8 +119,8 @@ public class InventoryTester {
         
         test.printItemDetails("potion");
         
-        //////////////////// Miscellanous Subclass Methods /////////////////
-        System.out.println("______________Miscellanous Subclass Methods______________");
+        //////////////////// Miscellaneous Subclass Methods /////////////////
+        System.out.println("______________Miscellaneous Subclass Methods______________\n");
 
         System.out.println(pants.toString());
         
@@ -129,7 +130,7 @@ public class InventoryTester {
         
         //////////////////// Usable Class Methods /////////////////
 
-        System.out.println("______________Usable Subclass Methods (Armor and Weapon)______________");
+        System.out.println("______________Usable Subclass Methods (Armor and Weapon)______________\n");
             
         // Equip + Unequip Armor Items
             machette.isInUse();
@@ -149,6 +150,11 @@ public class InventoryTester {
                 uppershield.unequip();
 
             uppershield.isInUse();
+
+        //////////////////// Examples of Exception Handling /////////////////
+
+        System.out.println("______________Examples of Exception Handling______________\n");
+            
     }
     public static void main(String[] args) {
         new InventoryTester();

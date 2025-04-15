@@ -24,7 +24,7 @@ public class Armor extends Usable{
     public String toString(){
         // Veevek
         // will override string to print useable item info and armor type info  
-        return super.toString() + "\nArmor Type: " + armorType;
+        return super.toString() + "\nArmor Type: " + armorType + "\n";
     }
 
 }

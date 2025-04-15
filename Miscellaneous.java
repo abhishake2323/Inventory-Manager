@@ -26,7 +26,7 @@ class Miscellaneous extends Item{
     // Veevek    
     public void setNotes(String notes){
         this.notes = notes;
-        System.out.println(getName() + " notes successfully updated.");
+        System.out.println(getName() + " notes successfully updated.\n");
     }
     
     @Override

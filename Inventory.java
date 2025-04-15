@@ -237,7 +237,7 @@ class Inventory {
 
     }
     
-    // Prints Spesific Item Details based on name
+    // Prints specific Item Details based on name
     // Abhishek
     public void printItemDetails(String name) {
         // uses getItemByName to find item then
