@@ -1,6 +1,5 @@
 package InventoryManager.AppExceptions;
-
- 
+// Abhishek
 public class FullInventoryException extends InventoryException {
     private int currentSize; // Current size of the inventory
     private int maxSize;     // Maximum size of the inventory

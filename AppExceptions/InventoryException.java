@@ -1,6 +1,5 @@
 package InventoryManager.AppExceptions;
-
-
+// Abhishek
 public abstract class InventoryException extends Exception {
     private String errorCode; // Common field for all inventory exceptions
 

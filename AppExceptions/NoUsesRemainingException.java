@@ -1,6 +1,5 @@
 package InventoryManager.AppExceptions;
-
-
+// Abhishek
 public class NoUsesRemainingException extends InventoryException {
     private String itemName;  // Name of the consumable item
     private int usesRemaining; // Remaining uses of the consumable item

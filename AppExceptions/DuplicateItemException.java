@@ -1,5 +1,5 @@
 package InventoryManager.AppExceptions;
-
+// Abhishek
 public class DuplicateItemException extends InventoryException {
     private String itemName; // Name of the duplicate item
 
