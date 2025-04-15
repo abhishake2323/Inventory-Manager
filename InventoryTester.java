@@ -15,7 +15,7 @@ public class InventoryTester {
         
         /////////////////// Create Items ///////////////////
         
-        // Miscellanous Category
+        // Miscellaneous Category
         Miscellaneous shirt = new Miscellaneous("Large Shirt", 10, 2, "Good in warm weather");
         Miscellaneous pants = new Miscellaneous("Pants", 12, 2, "In need of repair");
         
@@ -38,8 +38,8 @@ public class InventoryTester {
         System.out.println("______________Helper Method______________");
         test.help();
         
-        ///////////////// Basic Inventory Manipualtion Methods /////////////////
-        System.out.println("______________Basic Inventory Manipualtion Methods______________");
+        ///////////////// Basic Inventory Manipulation Methods /////////////////
+        System.out.println("______________Basic Inventory Manipulation Methods______________");
         
         // Add multiple items using array
         test.addMultiple(items);
@@ -58,12 +58,12 @@ public class InventoryTester {
         
         // Print all Inventory Details
         test.printInventoryDetails();
-        System.out.println("End Full Inventory Deatils");
+        System.out.println("End Full Inventory Details");
         
         // Print inventory value
         test.getTotalValue();
         
-        // Print space reamining in inventory
+        // Print space remaining in inventory
         test.getRemainingSpace();
         
         // Print items by category
@@ -82,6 +82,9 @@ public class InventoryTester {
         System.out.println("______________Weapon Subclass Methods______________");
         
         test.printItemDetails("Machette");
+
+        System.out.println("\nMachette Damage Type: " + machette.getType() + "\n");
+       
         System.out.println(fork.toString());
         
         ///////////////// Armor Subclass Methods /////////////////
@@ -90,10 +93,7 @@ public class InventoryTester {
         
         test.printItemDetails("Upper Body Shield");
         
-        // Equip + Unequip Items
-        uppershield.equip();   
-        uppershield.unequip();   
-        uppershield.unequip();
+        System.out.println("\nUpper Body Shield Armor Type: " + uppershield.getType() + "\n");
         
         test.printItemDetails("Upper Body Shield");
         
@@ -129,19 +129,26 @@ public class InventoryTester {
         
         //////////////////// Usable Class Methods /////////////////
 
-        System.out.println("______________Usable Class Methods______________");
+        System.out.println("______________Usable Subclass Methods (Armor and Weapon)______________");
+            
+        // Equip + Unequip Armor Items
+            machette.isInUse();
 
-        System.out.println("Checking inUse status for Machette:");
-        System.out.println("Is Machette in use? " + machette.isInUse());
+                machette.equip();       
+                machette.equip();       
+                machette.unequip();    
+                machette.unequip(); 
 
-        machette.equip();       // Should say equipped
-        machette.equip();       // Should say already equipped
-        machette.unequip();     // Should say unequipped
-        machette.unequip();     // Should say already unequipped
+            machette.isInUse();
 
-        System.out.println("Is Machette in use? " + machette.isInUse());
-    }
-        
+        // Equip + Unequip Weapon Items
+            uppershield.isInUse();
+
+                uppershield.equip();   
+                uppershield.unequip();   
+                uppershield.unequip();
+
+            uppershield.isInUse();
     }
     public static void main(String[] args) {
         new InventoryTester();
