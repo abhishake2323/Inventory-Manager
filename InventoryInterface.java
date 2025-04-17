@@ -1,5 +1,7 @@
 package InventoryManager;
 
+import InventoryManager.AppExceptions.ItemNotFoundException;
+
 /**
  *
  * @author abbyf
@@ -9,12 +11,12 @@ package InventoryManager;
 interface InventoryInterface {
     
     // Add item to inventory
-    public void addItem();
-    public void removeItem();
+    public void addItem(Item newItem);
+    public void removeItem(String name);
     
     // Get item/category info
-    public Item getItemByName(String name);
-    public Item[] getItemsByCategory(ItemCategory category);
+    public Item getItemByName(String name)  throws ItemNotFoundException;
+    public Item[] getItemsByCategory(ItemCategory category) throws ItemNotFoundException;
     
     // Print inventory details
     public void printInventoryDetails();

@@ -11,7 +11,7 @@ import InventoryManager.AppExceptions.ItemNotFoundException;
  */
 
 // Abby + Abhishek
-class Inventory {
+class Inventory implements InventoryInterface{
     protected Item[] items;
     protected int maxSize;
     protected int currentSize;
@@ -40,6 +40,7 @@ class Inventory {
 
     // Add item to inventory with extensive validation
     // Abby
+    @Override
     public void addItem(Item newItem) {
         // Validate item before adding
         if (newItem == null) {
@@ -135,6 +136,7 @@ class Inventory {
 
     // Remove item from inventory
     // Abby
+    @Override
     public void removeItem(String name) {
         // To track if item is found
         boolean itemFound = false;
@@ -162,6 +164,7 @@ class Inventory {
 
     // Search for an item by name
     // Abhishek
+    @Override
     public Item getItemByName(String name) throws ItemNotFoundException {
         // will search for item by name and return it
         for (Item item : items) {
@@ -175,6 +178,7 @@ class Inventory {
 
     // Search for items by category and return matching items
     // Abhishek
+    @Override
     public Item[] getItemsByCategory(ItemCategory category) throws ItemNotFoundException {
         // will search for items by ItemCategory emun and return an array
         int count = 0;
